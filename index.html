@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pattern Generator</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            width: 350px;
+            margin: auto;
+            box-shadow: 0px 0px 20px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #ff7b00;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff5500;
+            transform: scale(1.05);
+        }
+
+        pre {
+            text-align: left;
+            background: black;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            white-space: pre-wrap; /* no scroll, auto expand */
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>✨ Pattern Generator ✨</h2>
+
+    <input type="text" id="symbol" placeholder="Enter Symbol"><br>
+    <input type="number" id="rows" placeholder="Enter Rows"><br>
+
+    <button onclick="generate()">Generate</button>
+
+    <pre id="output"></pre>
+</div>
+
+<script>
+function generate() {
+    let symbol = document.getElementById("symbol").value;
+    let rows = parseInt(document.getElementById("rows").value);
+    let output = "";
+
+    if (!symbol || !rows) {
+        output = "Please enter both symbol and rows!";
+        document.getElementById("output").textContent = output;
+        return;
+    }
+
+    // Right Half Pyramid
+    for (let i = 1; i <= rows; i++) {
+        output += (symbol + " ").repeat(i) + "\n";
+    }
+
+    output += "\n";
+
+    // Full Pyramid
+    for (let i = rows; i >= 1; i--) {
+        output += " ".repeat(rows - i) + (symbol + " ").repeat(i) + "\n";
+    }
+
+    // Even Numbers
+    let even = [];
+    for (let i = 1; i <= 100; i++) {
+        if (i % 2 === 0) even.push(i);
+    }
+
+    output += "\nEven Numbers:\n" + even.join(", ");
+    output += "\nMin: " + Math.min(...even);
+    output += "\nMax: " + Math.max(...even);
+    output += "\nSum: " + even.reduce((a,b)=>a+b,0);
+
+    document.getElementById("output").textContent = output;
+}
+</script>
+
+</body>
+</html>
